@@ -24,7 +24,6 @@ class WooCommerce
      *
      * @return void
      */
-
     protected $properties = [];
 
     /**
@@ -70,7 +69,7 @@ class WooCommerce
     {
         return (new static() )->$method(...$parameters);
     }
-    
+
     public function __construct()
     {
         try {
