@@ -32,7 +32,7 @@
     },
     "extra": {},
     "scripts": {
-        "post-create-project-cmd": [
+        "post-package-install": [
             "php -r \"copy('src/config/woocommerce.php', 'wocommerce.php');\""
         ]
     }
