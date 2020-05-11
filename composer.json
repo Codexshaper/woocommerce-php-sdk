@@ -32,8 +32,16 @@
     },
     "extra": {},
     "scripts": {
+        "post-update-cmd": "Codexshaper\\WooCommerce\\PHP\\Install::postUpdate",
         "post-package-install": [
-            "php -r \"copy('src/config/woocommerce.php', 'wocommerce.php');\""
+            "Codexshaper\\WooCommerce\\PHP\\Install::postPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Codexshaper\\WooCommerce\\PHP\\Install::warmCache",
+            "phpunit -c app/"
+        ],
+        "post-autoload-dump": [
+            "Codexshaper\\WooCommerce\\PHP\\Install::postAutoloadDump"
         ]
     }
 }
