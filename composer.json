@@ -5,7 +5,7 @@
         "woocommerce",
         "php",
         "sdk",
-        "rest",
+        "rest"
     ],
     "type": "library",
     "require": {
