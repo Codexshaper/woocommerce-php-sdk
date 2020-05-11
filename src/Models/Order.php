@@ -2,8 +2,8 @@
 
 namespace Codexshaper\WooCommerce\PHP\Models;
 
-use Codexshaper\WooCommerce\PHP\Traits\QueryBuilderTrait;
 use Codexshaper\WooCommerce\PHP\WooCommerce;
+use Codexshaper\WooCommerce\PHP\Traits\QueryBuilderTrait;
 
 class Order extends BaseModel
 {

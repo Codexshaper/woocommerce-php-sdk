@@ -16,9 +16,9 @@ trait WooCommerceTrait
     public function all($endpoint = '', $options = [])
     {
         try {
-            self::__construct();
+            self::instance();
 
-            return $this->client->get($endpoint, $options);
+            return self::$client->get($endpoint, $options);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -36,9 +36,9 @@ trait WooCommerceTrait
     public function find($endpoint = '', $options = [])
     {
         try {
-            self::__construct();
+            self::instance();
 
-            return $this->client->get($endpoint, $options);
+            return self::$client->get($endpoint, $options);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -56,9 +56,9 @@ trait WooCommerceTrait
     public function create($endpoint, $data)
     {
         try {
-            self::__construct();
+            self::instance();
 
-            return $this->client->post($endpoint, $data);
+            return self::$client->post($endpoint, $data);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -76,9 +76,9 @@ trait WooCommerceTrait
     public function update($endpoint, $data)
     {
         try {
-            self::__construct();
+            self::instance();
 
-            return $this->client->put($endpoint, $data);
+            return self::$client->put($endpoint, $data);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -96,9 +96,9 @@ trait WooCommerceTrait
     public function delete($endpoint, $options = [])
     {
         try {
-            self::__construct();
+            self::instance();
 
-            return $this->client->delete($endpoint, $options);
+            return self::$client->delete($endpoint, $options);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -112,7 +112,7 @@ trait WooCommerceTrait
     public function getRequest()
     {
         try {
-            return $this->client->http->getRequest();
+            return self::$client->http->getRequest();
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -126,7 +126,7 @@ trait WooCommerceTrait
     public function getResponse()
     {
         try {
-            return $this->client->http->getResponse();
+            return self::$client->http->getResponse();
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -139,7 +139,7 @@ trait WooCommerceTrait
      */
     public function countResults()
     {
-        return (int) $this->getResponse()->getHeaders()[$this->headers['header_total']];
+        return (int) static::getResponse()->getHeaders()[self::$headers['header_total']];
     }
 
     /**
@@ -149,7 +149,7 @@ trait WooCommerceTrait
      */
     public function countPages()
     {
-        return (int) $this->getResponse()->getHeaders()[$this->headers['header_total_pages']];
+        return (int) static::getResponse()->getHeaders()[self::$headers['header_total_pages']];
     }
 
     /**
@@ -159,7 +159,7 @@ trait WooCommerceTrait
      */
     public function current()
     {
-        return !empty($this->getRequest()->getParameters()['page']) ? $this->getRequest()->getParameters()['page'] : 1;
+        return !empty(static::getRequest()->getParameters()['page']) ? static::getRequest()->getParameters()['page'] : 1;
     }
 
     /**
@@ -169,7 +169,7 @@ trait WooCommerceTrait
      */
     public function previous()
     {
-        $currentPage = $this->current();
+        $currentPage = static::current();
 
         return ($currentPage-- > 1) ? $currentPage : null;
     }
@@ -181,8 +181,8 @@ trait WooCommerceTrait
      */
     public function next()
     {
-        $currentPage = $this->current();
+        $currentPage = static::current();
 
-        return ($currentPage++ < $this->countPages()) ? $currentPage : null;
+        return ($currentPage++ < static::countPages()) ? $currentPage : null;
     }
 }

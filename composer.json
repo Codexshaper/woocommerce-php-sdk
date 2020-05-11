@@ -25,7 +25,15 @@
     "autoload": {
         "psr-4": {
             "Codexshaper\\WooCommerce\\PHP\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/functions.php"
+        ]
     },
-    "extra": {}
+    "extra": {},
+    "scripts": {
+        "post-create-project-cmd": [
+            "php -r \"copy('src/config/woocommerce.php', 'config/wocommerce.php');\""
+        ]
+    }
 }

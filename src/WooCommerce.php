@@ -3,6 +3,7 @@
 namespace Codexshaper\WooCommerce\PHP;
 
 use Automattic\WooCommerce\Client;
+use Codexshaper\WooCommerce\PHP\Helpers\Config;
 use Codexshaper\WooCommerce\PHP\Traits\WooCommerceTrait;
 
 class WooCommerce
@@ -12,18 +13,19 @@ class WooCommerce
     /**
      *@var \Automattic\WooCommerce\Client
      */
-    protected $client;
+    protected static $client;
 
     /**
      *@var array
      */
-    protected $headers = [];
+    protected static $headers = [];
 
     /**
      * Build Woocommerce connection.
      *
      * @return void
      */
+
     protected $properties = [];
 
     /**
@@ -69,25 +71,25 @@ class WooCommerce
     {
         return (new static() )->$method(...$parameters);
     }
-
-    public function __construct()
+    
+    private function instance()
     {
         try {
-            $this->headers = [
-                'header_total'       => config('woocommerce.header_total') ?? 'X-WP-Total',
-                'header_total_pages' => config('woocommerce.header_total_pages') ?? 'X-WP-TotalPages',
+            static::$headers = [
+                'header_total'       => Config::get('woocommerce.header_total'),
+                'header_total_pages' => Config::get('woocommerce.header_total_pages'),
             ];
 
-            $this->client = new Client(
-                config('woocommerce.store_url'),
-                config('woocommerce.consumer_key'),
-                config('woocommerce.consumer_secret'),
+            static::$client = new Client(
+                Config::get('woocommerce.store_url'),
+                Config::get('woocommerce.consumer_key'),
+                Config::get('woocommerce.consumer_secret'),
                 [
-                    'version'           => 'wc/'.config('woocommerce.api_version'),
-                    'wp_api'            => config('woocommerce.wp_api_integration'),
-                    'verify_ssl'        => config('woocommerce.verify_ssl'),
-                    'query_string_auth' => config('woocommerce.query_string_auth'),
-                    'timeout'           => config('woocommerce.timeout'),
+                    'version'           => 'wc/'.Config::get('woocommerce.api_version'),
+                    'wp_api'            => Config::get('woocommerce.wp_api'),
+                    'verify_ssl'        => Config::get('woocommerce.verify_ssl'),
+                    'query_string_auth' => Config::get('woocommerce.query_string_auth'),
+                    'timeout'           => Config::get('woocommerce.timeout'),
                 ]
             );
         } catch (\Exception $e) {
