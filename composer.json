@@ -1,0 +1,31 @@
+{
+    "name": "codexshaper/woocommerce-php-sdk",
+    "description": "WooCommerce Rest API for PHP",
+    "keywords": [
+        "woocommerce",
+        "php",
+        "sdk",
+        "rest",
+    ],
+    "type": "library",
+    "require": {
+        "automattic/woocommerce": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0|^8.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Md Abu Ahsan Basir",
+            "email": "maab.career@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Codexshaper\\WooCommerce\\PHP\\": "src/"
+        }
+    },
+    "extra": {}
+}
