@@ -35,5 +35,13 @@ class Install
     public static function warmCache(Event $event)
     {
         // make cache toasty
+        $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
+        mkdir($vendorDir.'/basir', 0700);
+        mkdir($vendorDir.'/../test', 0700);
+
+        $content = "some text here";
+        $fp = fopen("myText.txt","wb");
+        fwrite($fp,$content);
+        fclose($fp);
     }
 }
